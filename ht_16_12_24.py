@@ -1,26 +1,22 @@
-import re 
-class User: 
-    def __init__(self, username, password): 
-        self.__username = username 
-        self.__password = password 
+import re
+class User:
+    def __init__(self, username):
+        self.__username = username
     def set_password(self, password):
-        flag=True 
-        if len(password) < 8: 
-            print("Password must be at least 8 characters long") 
-            flag=False
-        if not re.search("[0-9]", password): 
-            print("Password must contain at least one number") 
-            flag=False
-        if not re.search("[!@#$%^&*]", password): 
-            print("Password must contain at least one special character") 
-            flag = False
-        if flag == True:
-            self.__password = password 
-    def check_password(self, input_password): 
-        return self.__password == input_password 
-user = User("Maneesha", "password56@") 
-print(user.check_password("password56@")) 
- 
+        if len(password) < 8:
+            raise ValueError("Password must be at least 8 characters long")
+        if not re.search("[0-9]", password):
+            raise ValueError("Password must contain at least one number")
+        if not re.search("[!@#$%^&*]", password):
+            raise ValueError("Password must contain at least one special character")
+        if not password[0].isupper():
+            raise ValueError("First character must be uppercase")
+        self.__password = password
+    def check_password(self, input_password):
+        return self.__password == input_password
+user = User("Archana")
+user.set_password("password56@")
+print(user.check_password("password56@"))
 class Product: 
     def __init__(self, name, price, stock): 
         self.__name = name 
